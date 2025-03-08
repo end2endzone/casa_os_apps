@@ -1,20 +1,38 @@
+name: NextPVR
 version: '3.5'
 services:
   nextpvr:
     image: nextpvr/nextpvr_amd64:stable
     container_name: nextpvr
     environment:
+      - HOST_IP=1.2.3.4
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      # - HOST_IP=1.2.3.4
-    network_mode: 'host'
+
+    # If you have an HDHomeRun, you must use 'host' network mode so that HDHomeRun can multicast to your app.
+    network_mode: host
+
     #ports:
+    #  # Enable ports if you do not use HDHomerun.
     #  - 8866:8866
     #  - 16891:16891/udp
     #  - 8026:8026/udp
+
     volumes:
       - /DATA/AppData/$AppID/config:/config
-      - /mnt/e/nextpvr/recordings:/recordings
-      - /mnt/e/nextpvr/buffer:/buffer
-    restart: 'unless-stopped'
+      - /DATA/AppData/$AppID/buffer:/buffer
+      - /DATA/Media/Recordings:/recordings
+    restart: unless-stopped
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://www.nextpvr.com/favicon.png
+  index: /
+  is_uncontrolled: false
+  port_map: "8866"
+  scheme: http
+  title:
+    custom: NextPVR
+    en_us: nextpvr
