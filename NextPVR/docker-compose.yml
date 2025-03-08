@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  nextpvr:
+    image: nextpvr/nextpvr_amd64:stable
+    container_name: nextpvr
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      # - HOST_IP=1.2.3.4
+    network_mode: 'host'
+    #ports:
+    #  - 8866:8866
+    #  - 16891:16891/udp
+    #  - 8026:8026/udp
+    volumes:
+      - /DATA/AppData/$AppID/config:/config
+      - /mnt/e/nextpvr/recordings:/recordings
+      - /mnt/e/nextpvr/buffer:/buffer
+    restart: 'unless-stopped'
