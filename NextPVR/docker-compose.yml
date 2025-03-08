@@ -1,29 +1,28 @@
-name: NextPVR
-version: '3.5'
+name: nextpvr
 services:
   nextpvr:
-    image: nextpvr/nextpvr_amd64:stable
+    cpu_shares: 90
     container_name: nextpvr
     environment:
-      - HOST_IP=1.2.3.4
+      - HOST_IP=127.0.0.1
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-
-    # If you have an HDHomeRun, you must use 'host' network mode so that HDHomeRun can multicast to your app.
-    network_mode: host
-
-    #ports:
-    #  # Enable ports if you do not use HDHomerun.
-    #  - 8866:8866
-    #  - 16891:16891/udp
-    #  - 8026:8026/udp
-
+    hostname: nextpvr
+    image: nextpvr/nextpvr_amd64:stable
+    labels:
+      icon: https://www.nextpvr.com/favicon.png
+    restart: unless-stopped
     volumes:
       - /DATA/AppData/$AppID/config:/config
       - /DATA/AppData/$AppID/buffer:/buffer
       - /DATA/Media/Recordings:/recordings
-    restart: unless-stopped
+    ports: []
+    # Enable ports if you do not use HDHomerun.
+    #  - 8866:8866
+    #  - 16891:16891/udp
+    #  - 8026:8026/udp
+    network_mode: host  # If you have an HDHomeRun, you must use 'host' network mode so that HDHomeRun can multicast to your app.
 x-casaos:
   author: self
   category: self
@@ -36,3 +35,11 @@ x-casaos:
   title:
     custom: NextPVR
     en_us: nextpvr
+  tips:
+    before_install:
+      en_us: |
+        (some notes for user to read prior to installation, such as preset `username` and `password` - markdown is supported!)
+        This is a multi-line markdown test...
+        The next word should be in *bold*.
+        The next word should be in *italic*.
+        The next word should be in `code`.
