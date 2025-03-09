@@ -4,7 +4,6 @@ services:
     cpu_shares: 90
     container_name: nextpvr
     environment:
-      #- HOST_IP=127.0.0.1 # Enable for HDHomerun users.
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
@@ -18,11 +17,7 @@ services:
       - /DATA/AppData/$AppID/buffer:/buffer
       - /DATA/Media/Recordings:/recordings
     ports: []
-    # Enable ports if you do not use HDHomerun.
-    #  - 8866:8866
-    #  - 16891:16891/udp
-    #  - 8026:8026/udp
-    network_mode: host  # If you have an HDHomeRun, you must use 'host' network mode so that HDHomeRun can multicast to your app.
+    network_mode: host
 x-casaos:
   author: self
   category: self
@@ -39,6 +34,6 @@ x-casaos:
     before_install:
       en_us: |
         The default login is 'admin/password'.
-        Note for HDHomeRun users. In order for the HDHomeRun to stream to your containers, you must specify the environment variable `HOST_IP` to the ip of your host.
-        For example, if you hosts your docker container on 1.2.3.4, you must set `HOST_IP=1.2.3.4`
+        This is a configuration for HDHomeRun users. In order for the HDHomeRun to stream to your containers, you must setup your docker container to be on hte host network.
+        This is because the HDHomeRun will stream back to NextPVR on different unpredictable ports (a.k.a. a very wide range of non-sequential ports).
         
