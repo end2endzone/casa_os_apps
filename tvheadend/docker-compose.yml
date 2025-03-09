@@ -29,11 +29,12 @@ services:
           description:
             en_us: Optionally specify additional arguments to be passed. See Additional
               runtime parameters.
-    networks: host
+    network_mode: host
 x-casaos:
   architectures:
     - amd64
     - arm64
+  author: self
   category: LinuxServer.io
   description:
     en_us: "Tvheadend works as a proxy server: is a TV streaming server and recorder
@@ -50,6 +51,7 @@ x-casaos:
   main: app
   port_map: "9981"
   scheme: http
+  store_app_id: linuxserver-tvheadend
   tagline:
     en_us: "Works as a proxy server: is a TV streaming server and recorder for
       Linux, FreeBSD and Android supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC,
