@@ -4,7 +4,7 @@ services:
     cpu_shares: 90
     container_name: nextpvr
     environment:
-      - HOST_IP=127.0.0.1
+      #- HOST_IP=127.0.0.1 # Enable for HDHomerun users.
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
@@ -38,8 +38,7 @@ x-casaos:
   tips:
     before_install:
       en_us: |
-        (some notes for user to read prior to installation, such as preset `username` and `password` - markdown is supported!)
-        This is a multi-line markdown test...
-        The next word should be in *bold*.
-        The next word should be in *italic*.
-        The next word should be in `code`.
+        The default login is 'admin/password'.
+        Note for HDHomeRun users. In order for the HDHomeRun to stream to your containers, you must specify the environment variable `HOST_IP` to the ip of your host.
+        For example, if you hosts your docker container on 1.2.3.4, you must set `HOST_IP=1.2.3.4`
+        
